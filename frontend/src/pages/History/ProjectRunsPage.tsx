@@ -42,8 +42,8 @@ export function ProjectRunsPage() {
         ) : (
           <>
             <div className="relative overflow-x-auto">
-              <table className="w-full text-left text-sm">
-                <thead className="bg-slate-50 text-xs font-medium tracking-wide text-slate-500 uppercase">
+              <table className="data-table">
+                <thead>
                   <tr>
                     <th scope="col" className="px-4 py-2.5 sm:px-5">Started</th>
                     <th scope="col" className="px-3 py-2.5">Status</th>
@@ -54,16 +54,16 @@ export function ProjectRunsPage() {
                     <th scope="col" className="hidden px-3 py-2.5 md:table-cell">Duration</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100">
+                <tbody>
                   {list.map((r) => (
-                    <tr key={r.id} className="hover:bg-slate-50/60">
+                    <tr key={r.id}>
                       <td className="px-4 py-2.5 whitespace-nowrap sm:px-5">
-                        <Link to={routes.run(projectId, r.id)} className="font-medium text-indigo-700 hover:underline">
+                        <Link to={routes.run(projectId, r.id)} className="font-medium text-link hover:underline">
                           {formatDateTime(r.started_at ?? r.created_at)}
                         </Link>
                       </td>
                       <td className="px-3 py-2.5"><RunStatusBadge status={r.status} /></td>
-                      <td className="hidden px-3 py-2.5 text-slate-600 sm:table-cell">{TRIGGER[r.trigger]}</td>
+                      <td className="hidden px-3 py-2.5 text-fg-secondary sm:table-cell">{TRIGGER[r.trigger]}</td>
                       <td className="px-3 py-2.5 whitespace-nowrap tabular-nums">
                         {r.completed_urls}/{r.total_urls}
                         {r.failed_urls > 0 && <span className="ml-1 text-poor">({r.failed_urls} failed)</span>}

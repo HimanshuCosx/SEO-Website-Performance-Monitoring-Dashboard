@@ -1,4 +1,5 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { ThemeProvider } from './components/common/ThemeProvider'
 import { ToastProvider } from './components/common/ToastProvider'
 import { AppLayout } from './layouts/AppLayout'
 import { DashboardPage } from './pages/Dashboard/DashboardPage'
@@ -26,8 +27,10 @@ const router = createBrowserRouter([
 
 export default function App() {
   return (
-    <ToastProvider>
-      <RouterProvider router={router} />
-    </ToastProvider>
+    <ThemeProvider>
+      <ToastProvider>
+        <RouterProvider router={router} />
+      </ToastProvider>
+    </ThemeProvider>
   )
 }

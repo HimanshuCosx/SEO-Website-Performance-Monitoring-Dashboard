@@ -56,8 +56,8 @@ export function RunResultsTable({ run, refreshKey }: { run: TestRun; refreshKey:
       ) : (
         <>
           <div className="relative overflow-x-auto">
-            <table className="w-full text-left text-sm">
-              <thead className="bg-slate-50 text-xs font-medium tracking-wide text-slate-500 uppercase">
+            <table className="data-table">
+              <thead>
                 <tr>
                   <th scope="col" className="px-4 py-2.5 sm:px-5">URL</th>
                   <th scope="col" className="px-3 py-2.5">Status</th>
@@ -71,7 +71,7 @@ export function RunResultsTable({ run, refreshKey }: { run: TestRun; refreshKey:
                   <th scope="col" className="hidden px-3 py-2.5 md:table-cell">Duration</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody>
                 {results.map((r) => (
                   <tr key={r.id}>
                     <td className="px-4 py-2.5 sm:px-5">

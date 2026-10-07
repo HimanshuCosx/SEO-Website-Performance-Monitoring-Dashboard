@@ -67,8 +67,8 @@ function ProjectForm({ onClose, onSaved, project }: Props) {
     >
       <form id={formId} onSubmit={submit} noValidate className="space-y-4">
         <div>
-          <label htmlFor="project-name" className="block text-sm font-medium text-slate-700">
-            Project name <span className="text-red-600">*</span>
+          <label htmlFor="project-name" className="mb-1.5 block text-[13px] font-medium text-fg">
+            Project name <span className="text-poor">*</span>
           </label>
           <input
             id="project-name"
@@ -79,17 +79,17 @@ function ProjectForm({ onClose, onSaved, project }: Props) {
             aria-invalid={!!nameError}
             aria-describedby={nameError ? 'project-name-error' : undefined}
             placeholder="e.g. Akhand Jyoti Website"
-            className={`mt-1 block h-10 w-full rounded-md border px-3 text-sm focus:outline-none ${nameError ? 'border-red-500' : 'border-slate-300 focus:border-indigo-500'}`}
+            className="form-control h-9"
           />
           {nameError && (
-            <p id="project-name-error" className="mt-1 text-sm text-red-600">
+            <p id="project-name-error" className="mt-1 text-sm text-poor">
               {nameError}
             </p>
           )}
         </div>
         <div>
-          <label htmlFor="project-description" className="block text-sm font-medium text-slate-700">
-            Description <span className="font-normal text-slate-400">(optional)</span>
+          <label htmlFor="project-description" className="mb-1.5 block text-[13px] font-medium text-fg">
+            Description <span className="font-normal text-fg-subtle">(optional)</span>
           </label>
           <textarea
             id="project-description"
@@ -97,11 +97,11 @@ function ProjectForm({ onClose, onSaved, project }: Props) {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             placeholder="e.g. SEO and performance monitoring for the Akhand Jyoti website."
-            className="mt-1 block w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none"
+            className="form-control py-2"
           />
         </div>
         {formError && (
-          <p role="alert" className="text-sm text-red-600">
+          <p role="alert" className="text-sm text-poor">
             {formError}
           </p>
         )}

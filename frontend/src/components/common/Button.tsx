@@ -7,19 +7,19 @@ type Variant = 'primary' | 'secondary' | 'danger' | 'ghost'
 type Size = 'sm' | 'md'
 
 const VARIANTS: Record<Variant, string> = {
-  primary: 'bg-indigo-600 text-white hover:bg-indigo-700 disabled:bg-indigo-300',
-  secondary: 'bg-white text-slate-700 border border-slate-300 hover:bg-slate-50 disabled:text-slate-400',
-  danger: 'bg-red-600 text-white hover:bg-red-700 disabled:bg-red-300',
-  ghost: 'text-slate-600 hover:bg-slate-100 hover:text-slate-900 disabled:text-slate-300',
+  primary: 'bg-primary text-primary-fg shadow-card hover:bg-primary-hover',
+  secondary: 'border border-line-strong bg-surface text-fg shadow-card hover:bg-subtle',
+  danger: 'bg-danger text-white shadow-card hover:bg-danger-hover',
+  ghost: 'text-fg-muted hover:bg-subtle hover:text-fg',
 }
 
-const SIZES: Record<Size, string> = {
-  sm: 'h-8 px-2.5 text-sm gap-1.5',
-  md: 'h-10 px-4 text-sm gap-2',
+const SIZES: Record<Size, { text: string; square: string }> = {
+  sm: { text: 'h-8 px-2.5 gap-1.5 text-[13px]', square: 'h-8 w-8' },
+  md: { text: 'h-9 px-3.5 gap-2 text-sm', square: 'h-9 w-9' },
 }
 
-const buttonClasses = (variant: Variant = 'primary', size: Size = 'md', extra = '') =>
-  `inline-flex items-center justify-center rounded-md font-medium whitespace-nowrap transition-colors disabled:cursor-not-allowed ${VARIANTS[variant]} ${SIZES[size]} ${extra}`
+const buttonClasses = (variant: Variant, size: Size, iconOnly: boolean, extra = '') =>
+  `inline-flex items-center justify-center rounded-md font-medium whitespace-nowrap transition-colors disabled:opacity-50 ${VARIANTS[variant]} ${iconOnly ? SIZES[size].square : SIZES[size].text} ${extra}`
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: Variant
@@ -29,9 +29,10 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children?: ReactNode
 }
 
+/** The only button in the app. Icon-only buttons (no children) render square and must have an aria-label. */
 export function Button({ variant = 'primary', size = 'md', icon, loading, disabled, className = '', children, type = 'button', ...rest }: ButtonProps) {
   return (
-    <button type={type} disabled={disabled || loading} className={buttonClasses(variant, size, className)} {...rest}>
+    <button type={type} disabled={disabled || loading} className={buttonClasses(variant, size, !children, className)} {...rest}>
       {loading ? <Spinner className="h-4 w-4" /> : icon ? <Icon name={icon} /> : null}
       {children}
     </button>
@@ -40,7 +41,7 @@ export function Button({ variant = 'primary', size = 'md', icon, loading, disabl
 
 export function LinkButton({ to, variant = 'secondary', size = 'md', icon, children, className = '', ariaLabel, title }: { to: string; variant?: Variant; size?: Size; icon?: IconName; children?: ReactNode; className?: string; ariaLabel?: string; title?: string }) {
   return (
-    <Link to={to} className={buttonClasses(variant, size, className)} aria-label={ariaLabel} title={title}>
+    <Link to={to} className={buttonClasses(variant, size, !children, className)} aria-label={ariaLabel} title={title}>
       {icon && <Icon name={icon} />}
       {children}
     </Link>

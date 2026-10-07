@@ -13,7 +13,7 @@ export function ScoresOverview({ result }: { result: UrlTestResult }) {
         <div key={key} className="flex flex-col items-center gap-1">
           <ScoreGauge label={SCORE_LABELS[key]} score={result.scores?.[key]} />
           {result.previous_scores && (
-            <div className="flex items-center gap-1 text-xs text-slate-500">
+            <div className="flex items-center gap-1 text-xs text-fg-muted">
               <span>Prev {result.previous_scores[key] ?? '—'}</span>
               <ScoreDelta current={result.scores?.[key]} previous={result.previous_scores[key]} />
             </div>
@@ -29,12 +29,13 @@ export function MetricsList({ result }: { result: UrlTestResult }) {
   return (
     <dl className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
       {METRIC_KEYS.map((key) => (
-        <div key={key} className="rounded-lg border border-slate-200 p-3">
-          <dt className="text-sm text-slate-500" title={METRIC_LABELS[key].long}>
-            {METRIC_LABELS[key].long} <span className="text-slate-400">({METRIC_LABELS[key].short})</span>
+        <div key={key} className="rounded-lg border border-line bg-subtle/50 p-3.5">
+          <dt className="flex items-baseline justify-between gap-2 text-[13px] text-fg-muted">
+            <span>{METRIC_LABELS[key].long}</span>
+            <span className="text-[11px] font-medium text-fg-subtle">{METRIC_LABELS[key].short}</span>
           </dt>
-          <dd className="mt-1 text-xl font-semibold text-slate-900 tabular-nums">{formatMetric(key, metricValue(result.metrics, key))}</dd>
-          <dd className="mt-1">
+          <dd className="mt-2 text-xl leading-none font-semibold tracking-tight text-fg tabular-nums">{formatMetric(key, metricValue(result.metrics, key))}</dd>
+          <dd className="mt-2.5">
             <RatingBadge rating={metricRating(result.metric_scores?.[key])} />
           </dd>
         </div>

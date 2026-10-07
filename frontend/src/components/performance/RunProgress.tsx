@@ -20,32 +20,41 @@ export function RunProgress({ run, compact = false }: { run: TestRun; compact?: 
   useNow(true)
   const elapsed = secondsBetween(run.started_at)
 
+  const pct = run.total_urls ? Math.round((done / run.total_urls) * 100) : 0
+
   return (
     <div aria-live="polite">
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <p className="flex items-center gap-2 font-medium text-slate-900">
-          <Spinner className="h-4 w-4 text-indigo-600" />
+        <p className="flex items-center gap-2 text-sm font-medium text-fg">
+          <Spinner className="h-4 w-4 text-link" />
           {run.status === 'queued' ? 'Queued — waiting to start…' : `Running performance test: ${done} / ${run.total_urls}`}
         </p>
-        <p className="text-sm text-slate-500 tabular-nums">Elapsed {formatDuration(elapsed, '0s')}</p>
+        <p className="flex items-center gap-3 text-[13px] text-fg-muted tabular-nums">
+          <span className="font-medium text-fg">{pct}%</span>
+          <span>Elapsed {formatDuration(elapsed, '0s')}</span>
+        </p>
       </div>
       <div className="mt-3">
         <ProgressBar label="Test run progress" completed={run.completed_urls} failed={run.failed_urls} total={run.total_urls} />
       </div>
-      <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-sm text-slate-600">
-        <span>
-          <span className="font-medium text-slate-900">{run.completed_urls}</span> completed
+      <div className="mt-3 flex flex-wrap gap-x-5 gap-y-1 text-[13px] text-fg-muted">
+        <span className="flex items-center gap-1.5">
+          <span aria-hidden="true" className="h-2 w-2 rounded-full bg-primary" />
+          <span className="font-medium text-fg tabular-nums">{run.completed_urls}</span> completed
         </span>
-        <span>
-          <span className={`font-medium ${run.failed_urls ? 'text-poor' : 'text-slate-900'}`}>{run.failed_urls}</span> failed
+        <span className="flex items-center gap-1.5">
+          <span aria-hidden="true" className="h-2 w-2 rounded-full bg-poor" />
+          <span className="font-medium text-fg tabular-nums">{run.failed_urls}</span> failed
         </span>
-        <span>
-          <span className="font-medium text-slate-900">{run.total_urls - done}</span> remaining
+        <span className="flex items-center gap-1.5">
+          <span aria-hidden="true" className="h-2 w-2 rounded-full bg-line-strong" />
+          <span className="font-medium text-fg tabular-nums">{run.total_urls - done}</span> remaining
         </span>
       </div>
       {!compact && run.current_url && (
-        <p className="mt-2 truncate text-sm text-slate-600" title={run.current_url}>
-          Analyzing performance… <span className="font-mono text-xs text-slate-800">{run.current_url}</span>
+        <p className="mt-3 flex min-w-0 items-center gap-2 rounded-md border border-line bg-subtle px-3 py-2 text-[13px] text-fg-muted" title={run.current_url}>
+          <span className="shrink-0">Analyzing</span>
+          <span className="truncate font-mono text-xs text-fg">{run.current_url}</span>
         </p>
       )}
     </div>

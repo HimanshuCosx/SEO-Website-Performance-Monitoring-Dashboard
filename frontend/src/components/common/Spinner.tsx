@@ -5,7 +5,7 @@ export function Spinner({ className = 'h-5 w-5', label }: { className?: string; 
         <circle cx="12" cy="12" r="10" stroke="currentColor" strokeOpacity="0.25" strokeWidth="4" />
         <path d="M22 12a10 10 0 0 0-10-10" stroke="currentColor" strokeWidth="4" strokeLinecap="round" />
       </svg>
-      {label && <span className="text-sm text-slate-600">{label}</span>}
+      {label && <span className="text-sm text-fg-secondary">{label}</span>}
     </span>
   )
 }

@@ -79,7 +79,7 @@ export function ProjectDetailsPage() {
         title={project.name}
         description={
           <>
-            {project.description && <p className="mb-1 text-slate-600">{project.description}</p>}
+            {project.description && <p className="mb-1 text-fg-secondary">{project.description}</p>}
             <p>
               {pluralize(project.url_count, 'URL')} · Last tested: {formatDateTime(project.last_tested_at, 'Never')}
             </p>
@@ -90,7 +90,7 @@ export function ProjectDetailsPage() {
             <Button variant="ghost" size="sm" icon="edit" onClick={() => setEditOpen(true)}>
               Edit
             </Button>
-            <Button variant="ghost" size="sm" icon="trash" className="hover:text-red-600" onClick={() => setDeleteOpen(true)}>
+            <Button variant="ghost" size="sm" icon="trash" className="hover:text-poor" onClick={() => setDeleteOpen(true)}>
               Delete
             </Button>
             <LinkButton to={routes.projectRuns(project.id)} icon="history">
@@ -117,7 +117,7 @@ export function ProjectDetailsPage() {
 
       <div className="space-y-6">
         {runInProgress && activeRun && (
-          <Card className="border-indigo-200 p-4 sm:p-5">
+          <Card className="border-primary/40 p-4 sm:p-5">
             <RunProgress run={activeRun} />
             <LinkButton to={routes.run(project.id, activeRun.id)} size="sm" className="mt-3">
               View live results
@@ -130,7 +130,7 @@ export function ProjectDetailsPage() {
         ) : (
           project.url_count > 0 &&
           !runInProgress && (
-            <Card className="p-5 text-sm text-slate-600">
+            <Card className="p-5 text-sm text-fg-secondary">
               No performance tests have been run yet. Click <strong>Run performance test</strong> to test all {pluralize(project.url_count, 'URL')}.
             </Card>
           )
@@ -165,7 +165,7 @@ export function ProjectDetailsPage() {
         message={
           <>
             <p>
-              Delete <strong className="text-slate-900">{project.name}</strong> and its {pluralize(project.url_count, 'URL')}?
+              Delete <strong className="text-fg">{project.name}</strong> and its {pluralize(project.url_count, 'URL')}?
             </p>
             <p className="mt-2">All test history for this project will be permanently deleted. This cannot be undone.</p>
           </>

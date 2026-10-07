@@ -4,6 +4,15 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <!-- Apply the saved/OS theme before first paint so dark mode never flashes white. Keep in sync with ThemeProvider. -->
+    <script>
+      try {
+        var t = localStorage.getItem('seo-dashboard-theme')
+        if (t !== 'light' && t !== 'dark') t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+        if (t === 'dark') document.documentElement.classList.add('dark')
+      } catch (e) {}
+    </script>
     <title>SEO & Performance Dashboard</title>
   </head>
   <body>

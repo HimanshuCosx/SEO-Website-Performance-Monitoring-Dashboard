@@ -54,7 +54,7 @@ function EditUrlForm({ url, onClose, onSaved }: Props & { url: ProjectUrl }) {
       }
     >
       <form id="edit-url-form" onSubmit={submit} noValidate>
-        <label htmlFor="edit-url" className="block text-sm font-medium text-slate-700">
+        <label htmlFor="edit-url" className="mb-1.5 block text-[13px] font-medium text-fg">
           URL
         </label>
         <input
@@ -64,14 +64,14 @@ function EditUrlForm({ url, onClose, onSaved }: Props & { url: ProjectUrl }) {
           onChange={(e) => setValue(e.target.value)}
           aria-invalid={!!error}
           aria-describedby={error ? 'edit-url-error' : undefined}
-          className={`mt-1 block h-10 w-full rounded-md border px-3 font-mono text-sm focus:outline-none ${error ? 'border-red-500' : 'border-slate-300 focus:border-indigo-500'}`}
+          className="form-control h-9 font-mono text-[13px]"
         />
         {error && (
-          <p id="edit-url-error" className="mt-1 text-sm text-red-600">
+          <p id="edit-url-error" className="mt-1 text-sm text-poor">
             {error}
           </p>
         )}
-        <p className="mt-2 text-xs text-slate-500">Past test results stay linked to this URL entry.</p>
+        <p className="mt-2 text-xs text-fg-muted">Past test results stay linked to this URL entry.</p>
       </form>
     </Modal>
   )

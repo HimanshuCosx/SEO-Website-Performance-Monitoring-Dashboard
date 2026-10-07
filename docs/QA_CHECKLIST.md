@@ -98,7 +98,16 @@ Legend: ☐ = not tested · ✅ pass · ❌ fail (note the bug)
 - ☐ Dialogs trap focus and return focus after closing
 - ☐ Screen reader: buttons with icons only have labels (e.g. "Delete https://…")
 
-## 12. Security & configuration
+## 12. Light / dark theme
+- ☐ Theme toggle (sun/moon icon, top right) switches instantly
+- ☐ Choice survives a page refresh. With no saved choice, the app follows the OS setting
+- ☐ No white flash when loading in dark mode
+- ☐ Dark mode: no white cards, inputs, dropdowns, dialogs, toasts or table headers
+- ☐ Light mode: no dark components
+- ☐ Chart lines, gridlines, axis labels and tooltip readable in both themes
+- ☐ Score colours (green / orange / red) readable on both backgrounds
+
+## 13. Security & configuration
 - ☐ No Google API key anywhere in the built bundle (`grep -ri "AIza" frontend/dist` returns nothing)
 - ☐ `.env` is not committed (`git status` doesn't show it)
 - ☐ `VITE_API_BASE_URL` change is picked up after restarting `npm run dev`

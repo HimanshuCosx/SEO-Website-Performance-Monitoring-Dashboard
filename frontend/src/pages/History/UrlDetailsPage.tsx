@@ -80,7 +80,7 @@ export function UrlDetailsPage() {
             <Button variant="ghost" size="sm" icon="edit" onClick={() => setEditOpen(true)}>
               Edit
             </Button>
-            <Button variant="ghost" size="sm" icon="trash" className="hover:text-red-600" onClick={() => setDeleteOpen(true)}>
+            <Button variant="ghost" size="sm" icon="trash" className="hover:text-poor" onClick={() => setDeleteOpen(true)}>
               Delete
             </Button>
             <Button
@@ -115,7 +115,7 @@ export function UrlDetailsPage() {
           ) : (
             <div className="space-y-6 p-4 sm:p-5">
               <ScoresOverview result={latestCompleted} />
-              {!latestCompleted.previous_scores && <p className="text-center text-xs text-slate-500">This is the first completed test for this URL — nothing to compare against yet.</p>}
+              {!latestCompleted.previous_scores && <p className="text-center text-xs text-fg-muted">This is the first completed test for this URL — nothing to compare against yet.</p>}
               <MetricsList result={latestCompleted} />
             </div>
           )}
@@ -157,7 +157,7 @@ export function UrlDetailsPage() {
         title="Delete URL?"
         message={
           <p>
-            Remove <span className="font-mono break-all text-slate-900">{url.url}</span> from this project? It will no longer be tested. This cannot be undone.
+            Remove <span className="font-mono break-all text-fg">{url.url}</span> from this project? It will no longer be tested. This cannot be undone.
           </p>
         }
         onClose={() => setDeleteOpen(false)}

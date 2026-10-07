@@ -43,9 +43,9 @@ export function ConfirmDialog({ open, title, message, confirmLabel = 'Delete', o
         </>
       }
     >
-      <div className="text-sm text-slate-600">{message}</div>
+      <div className="text-sm text-fg-secondary">{message}</div>
       {error && (
-        <p role="alert" className="mt-3 text-sm text-red-600">
+        <p role="alert" className="mt-3 text-sm text-poor">
           {error}
         </p>
       )}

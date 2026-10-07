@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useState, type ReactNode } from 'react'
 import { ToastContext, type ToastApi, type ToastVariant } from '../../hooks/useToast'
-import { Icon } from './Icon'
+import { Icon, type IconName } from './Icon'
 
 interface ToastItem {
   id: number
@@ -8,10 +8,10 @@ interface ToastItem {
   variant: ToastVariant
 }
 
-const STYLES: Record<ToastVariant, string> = {
-  success: 'border-emerald-200 bg-emerald-50 text-emerald-800',
-  error: 'border-red-200 bg-red-50 text-red-800',
-  info: 'border-slate-200 bg-white text-slate-800',
+const VARIANT_ICON: Record<ToastVariant, { icon: IconName; cls: string }> = {
+  success: { icon: 'checkCircle', cls: 'text-good' },
+  error: { icon: 'xCircle', cls: 'text-poor' },
+  info: { icon: 'activity', cls: 'text-info' },
 }
 
 let nextId = 1
@@ -30,23 +30,24 @@ export function ToastProvider({ children }: { children: ReactNode }) {
     [dismiss],
   )
 
-  const api = useMemo<ToastApi>(
-    () => ({ show, success: (m) => show(m, 'success'), error: (m) => show(m, 'error') }),
-    [show],
-  )
+  const api = useMemo<ToastApi>(() => ({ show, success: (m) => show(m, 'success'), error: (m) => show(m, 'error') }), [show])
 
   return (
     <ToastContext.Provider value={api}>
       {children}
       <div aria-live="polite" className="pointer-events-none fixed right-4 bottom-4 left-4 z-50 flex flex-col items-end gap-2 sm:left-auto">
-        {toasts.map((t) => (
-          <div key={t.id} role={t.variant === 'error' ? 'alert' : 'status'} className={`pointer-events-auto flex w-full max-w-sm items-start gap-2 rounded-md border px-3 py-2 text-sm shadow-md ${STYLES[t.variant]}`}>
-            <span className="flex-1">{t.message}</span>
-            <button type="button" onClick={() => dismiss(t.id)} aria-label="Dismiss notification" className="opacity-60 hover:opacity-100">
-              <Icon name="close" className="h-4 w-4" />
-            </button>
-          </div>
-        ))}
+        {toasts.map((t) => {
+          const v = VARIANT_ICON[t.variant]
+          return (
+            <div key={t.id} role={t.variant === 'error' ? 'alert' : 'status'} className="pointer-events-auto flex w-full max-w-sm items-start gap-2.5 rounded-lg border border-line bg-surface px-3.5 py-3 text-sm text-fg shadow-pop">
+              <Icon name={v.icon} className={`mt-px h-4 w-4 ${v.cls}`} />
+              <span className="flex-1">{t.message}</span>
+              <button type="button" onClick={() => dismiss(t.id)} aria-label="Dismiss notification" className="text-fg-subtle transition-colors hover:text-fg">
+                <Icon name="close" className="h-4 w-4" />
+              </button>
+            </div>
+          )
+        })}
       </div>
     </ToastContext.Provider>
   )

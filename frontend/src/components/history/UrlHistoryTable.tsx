@@ -7,8 +7,8 @@ import { ScoreDelta, ScorePill } from '../performance/Score'
 export function UrlHistoryTable({ results }: { results: UrlTestResult[] }) {
   return (
     <div className="relative overflow-x-auto">
-      <table className="w-full text-left text-sm">
-        <thead className="bg-slate-50 text-xs font-medium tracking-wide text-slate-500 uppercase">
+      <table className="data-table">
+        <thead>
           <tr>
             <th scope="col" className="px-4 py-2.5 sm:px-5">Date</th>
             <th scope="col" className="px-3 py-2.5">Time</th>
@@ -25,13 +25,13 @@ export function UrlHistoryTable({ results }: { results: UrlTestResult[] }) {
             <th scope="col" className="px-3 py-2.5">Duration</th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-slate-100">
+        <tbody>
           {results.map((r) => {
             const when = r.completed_at ?? r.started_at
             return (
               <tr key={r.id}>
                 <td className="px-4 py-2.5 whitespace-nowrap sm:px-5">{formatDate(when)}</td>
-                <td className="px-3 py-2.5 whitespace-nowrap text-slate-600">{formatTime(when)}</td>
+                <td className="px-3 py-2.5 whitespace-nowrap text-fg-secondary">{formatTime(when)}</td>
                 <td className="px-3 py-2.5">
                   <ResultStatusBadge status={r.status} />
                   {r.error && <div className="mt-0.5 text-xs whitespace-nowrap text-poor">{RESULT_ERROR_LABELS[r.error.code] ?? 'Error'}</div>}

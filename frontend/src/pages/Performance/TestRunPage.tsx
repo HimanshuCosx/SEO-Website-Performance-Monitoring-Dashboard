@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom'
 import { Button, LinkButton } from '../../components/common/Button'
-import { Card, CardHeader } from '../../components/common/Card'
+import { Card } from '../../components/common/Card'
 import { PageHeader } from '../../components/common/PageHeader'
 import { RunStatusBadge } from '../../components/common/StatusBadge'
 import { ErrorState, InlineError, Skeleton } from '../../components/common/States'
@@ -91,15 +91,10 @@ export function TestRunPage() {
         {active ? (
           <Card className="p-4 sm:p-5">
             <RunProgress run={run} />
-            <p className="mt-3 text-xs text-slate-500">You can leave this page — the test keeps running on the server. Come back any time to see progress.</p>
+            <p className="mt-3 text-xs text-fg-muted">You can leave this page — the test keeps running on the server. Come back any time to see progress.</p>
           </Card>
         ) : (
-          <Card>
-            <CardHeader title="Summary" />
-            <div className="p-4 sm:p-5">
-              <RunSummary run={run} />
-            </div>
-          </Card>
+          <RunSummary run={run} />
         )}
 
         <RunResultsTable run={run} refreshKey={progressKey} />

@@ -7,6 +7,7 @@ import { pluralize } from '../../utils/format'
 import { INVALID_REASON_LABELS, parseUrlList } from '../../utils/urlValidation'
 import { Button } from '../common/Button'
 import { Modal } from '../common/Modal'
+import { Badge } from '../common/StatusBadge'
 
 const MAX_PER_REQUEST = 1000
 
@@ -68,7 +69,7 @@ function AddUrlsForm({ projectId, onClose, onAdded }: Props) {
       }
     >
       {serverResult && (
-        <div role="status" className="mb-4 rounded-md border border-amber-200 bg-amber-50 p-3 text-sm text-amber-900">
+        <div role="status" className="mb-4 rounded-md border border-warn/25 bg-warn-soft p-3 text-[13px] text-fg-secondary">
           <p className="font-medium">
             {pluralize(serverResult.created.length, 'URL')} added · {pluralize(serverResult.rejected.length, 'URL')} rejected by the server
           </p>
@@ -82,7 +83,7 @@ function AddUrlsForm({ projectId, onClose, onAdded }: Props) {
         </div>
       )}
 
-      <label htmlFor="urls-input" className="block text-sm font-medium text-slate-700">
+      <label htmlFor="urls-input" className="mb-1.5 block text-[13px] font-medium text-fg">
         URLs — one per line
       </label>
       <textarea
@@ -96,27 +97,28 @@ function AddUrlsForm({ projectId, onClose, onAdded }: Props) {
         }}
         placeholder={'https://example.com/\nhttps://example.com/about\nhttps://example.com/contact'}
         spellCheck={false}
-        className="mt-1 block w-full rounded-md border border-slate-300 px-3 py-2 font-mono text-sm focus:border-indigo-500 focus:outline-none"
+        className="form-control py-2 font-mono text-[13px] leading-relaxed"
       />
-      <p className="mt-1 text-xs text-slate-500">Full URLs including http:// or https://. Invalid lines are skipped — valid URLs are still added.</p>
+      <p className="mt-1 text-xs text-fg-muted">Full URLs including http:// or https://. Invalid lines are skipped — valid URLs are still added.</p>
 
       {parsed.total > 0 && (
         <div className="mt-4 space-y-3 text-sm" aria-live="polite">
-          <p className="text-slate-700">
-            <strong>{pluralize(parsed.total, 'URL')}</strong> entered · <span className="text-good">{parsed.valid.length} valid</span>
-            {parsed.invalid.length > 0 && <> · <span className="text-poor">{parsed.invalid.length} invalid</span></>}
-            {parsed.duplicates.length > 0 && <> · <span className="text-slate-500">{parsed.duplicates.length} duplicate</span></>}
-          </p>
+          <div className="flex flex-wrap items-center gap-2 text-[13px]">
+            <span className="text-fg-muted">{pluralize(parsed.total, 'URL')} entered</span>
+            <Badge tone="good" label={`${parsed.valid.length} valid`} />
+            {parsed.invalid.length > 0 && <Badge tone="poor" label={`${parsed.invalid.length} invalid`} />}
+            {parsed.duplicates.length > 0 && <Badge tone="neutral" label={`${parsed.duplicates.length} duplicate`} />}
+          </div>
 
           {tooMany && <p className="text-poor">You can add at most {MAX_PER_REQUEST.toLocaleString()} URLs at once. Please split the list.</p>}
 
           {parsed.invalid.length > 0 && (
-            <div className="rounded-md border border-red-200 bg-red-50 p-3">
-              <p className="font-medium text-red-800">Invalid (will be skipped)</p>
+            <div className="rounded-md border border-poor/30 bg-poor-soft p-3">
+              <p className="text-[13px] font-medium text-poor">Invalid — will be skipped</p>
               <ul className="mt-1 max-h-40 space-y-1 overflow-y-auto">
                 {parsed.invalid.map((i, idx) => (
-                  <li key={idx} className="break-all text-red-700">
-                    <span className="font-mono text-xs">{i.input}</span> — {INVALID_REASON_LABELS[i.reason]}
+                  <li key={idx} className="text-[13px] break-all text-fg-secondary">
+                    <span className="font-mono text-xs text-fg">{i.input}</span> — {INVALID_REASON_LABELS[i.reason]}
                   </li>
                 ))}
               </ul>
@@ -124,13 +126,13 @@ function AddUrlsForm({ projectId, onClose, onAdded }: Props) {
           )}
 
           {parsed.duplicates.length > 0 && (
-            <p className="text-slate-500">Duplicates in the list are added only once.</p>
+            <p className="text-fg-muted">Duplicates in the list are added only once.</p>
           )}
         </div>
       )}
 
       {error && (
-        <p role="alert" className="mt-3 text-sm text-red-600">
+        <p role="alert" className="mt-3 text-sm text-poor">
           {error}
         </p>
       )}
