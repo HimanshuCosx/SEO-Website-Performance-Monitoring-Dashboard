@@ -1,0 +1,26 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --color-good: #0a8754;
+  --color-good-bg: #e7f6ee;
+  --color-warn: #b45309;
+  --color-warn-bg: #fdf3e2;
+  --color-poor: #c42b1c;
+  --color-poor-bg: #fdecea;
+}
+
+@layer base {
+  html {
+    color-scheme: light;
+  }
+  body {
+    @apply bg-slate-50 text-slate-800 antialiased;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-indigo-500;
+  }
+  dialog::backdrop {
+    background: rgb(15 23 42 / 0.45);
+  }
+}
