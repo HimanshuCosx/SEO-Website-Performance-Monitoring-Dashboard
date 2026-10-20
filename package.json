@@ -1,0 +1,13 @@
+{
+  "name": "seo-website-performance-monitoring-dashboard",
+  "private": true,
+  "scripts": {
+    "install:frontend": "pnpm --dir frontend install",
+    "dev": "pnpm --dir frontend run dev",
+    "build": "pnpm --dir frontend run build",
+    "preview": "pnpm --dir frontend run preview",
+    "lint": "pnpm --dir frontend run lint",
+    "typecheck": "pnpm --dir frontend run typecheck",
+    "test": "pnpm --dir frontend run test"
+  }
+}
