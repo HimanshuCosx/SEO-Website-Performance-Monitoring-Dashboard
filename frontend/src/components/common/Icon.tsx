@@ -4,6 +4,8 @@
  */
 import {
   Activity,
+  ArrowLeft,
+  ArrowRight,
   Check,
   ChevronLeft,
   ChevronRight,
@@ -11,6 +13,8 @@ import {
   CircleX,
   Clock,
   ExternalLink,
+  Eye,
+  EyeOff,
   FolderKanban,
   Gauge,
   Globe,
@@ -18,6 +22,9 @@ import {
   Inbox,
   LayoutDashboard,
   Link2,
+  Lock,
+  Mail,
+  MailCheck,
   ListChecks,
   Menu,
   Pencil,
@@ -28,6 +35,7 @@ import {
   SearchX,
   TriangleAlert,
   Trash2,
+  User,
   X,
   type LucideIcon,
 } from 'lucide-react'
@@ -59,6 +67,14 @@ const ICONS = {
   clock: Clock,
   list: ListChecks,
   inbox: Inbox,
+  mail: Mail,
+  mailCheck: MailCheck,
+  user: User,
+  lock: Lock,
+  eye: Eye,
+  eyeOff: EyeOff,
+  arrowLeft: ArrowLeft,
+  arrowRight: ArrowRight,
 } satisfies Record<string, LucideIcon>
 
 export type IconName = keyof typeof ICONS

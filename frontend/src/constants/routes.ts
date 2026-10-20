@@ -3,6 +3,9 @@ import type { ID } from '../types/api'
 /** Build app URLs in one place so links never drift out of sync with the router. */
 export const routes = {
   dashboard: () => '/',
+  login: () => '/login',
+  signup: () => '/signup',
+  forgotPassword: () => '/forgot-password',
   projects: () => '/projects',
   project: (projectId: ID) => `/projects/${projectId}`,
   projectRuns: (projectId: ID) => `/projects/${projectId}/runs`,

@@ -2,6 +2,10 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { ThemeProvider } from './components/common/ThemeProvider'
 import { ToastProvider } from './components/common/ToastProvider'
 import { AppLayout } from './layouts/AppLayout'
+import { AuthLayout } from './layouts/AuthLayout'
+import { ForgotPasswordPage } from './pages/Auth/ForgotPasswordPage'
+import { LoginPage } from './pages/Auth/LoginPage'
+import { SignupPage } from './pages/Auth/SignupPage'
 import { DashboardPage } from './pages/Dashboard/DashboardPage'
 import { NotFoundPage } from './pages/NotFound/NotFoundPage'
 import { ProjectDetailsPage } from './pages/ProjectDetails/ProjectDetailsPage'
@@ -11,6 +15,14 @@ import { TestRunPage } from './pages/Performance/TestRunPage'
 import { UrlDetailsPage } from './pages/History/UrlDetailsPage'
 
 const router = createBrowserRouter([
+  {
+    element: <AuthLayout />,
+    children: [
+      { path: '/login', element: <LoginPage /> },
+      { path: '/signup', element: <SignupPage /> },
+      { path: '/forgot-password', element: <ForgotPasswordPage /> },
+    ],
+  },
   {
     element: <AppLayout />,
     children: [
